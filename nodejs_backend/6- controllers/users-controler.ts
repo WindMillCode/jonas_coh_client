@@ -1,22 +1,25 @@
 import express, { NextFunction, Request, Response } from "express";
 import userLogic from "../5- logic/user-logic";
-import router from "./order-controller";
+
 import cacheModule from "../5- logic/cache-module";
 import UserModel from "../4- models/user-model";
 import RoleModel from "../4- models/role-model";
+import User from "../4- models/User";
+var router = require('express').Router();
 const ValidateUser = require("../validator/validatorUser");
 
 //register route
 
 router.post("/register/firstStep", async (req: Request, res: Response, next: NextFunction) => {
   try {
+        // @ts-ignore
     req.body.image = req.files?.image;
-   
+
     const user = new UserModel(req.body);
 
     user.role = RoleModel.user;
         console.log(user);
-        
+
     const token = await userLogic.userRegisterFirstStep(user);
     res.status(201).json(token);
   } catch (error) {
@@ -26,9 +29,9 @@ router.post("/register/firstStep", async (req: Request, res: Response, next: Nex
 
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const credentials = new UserModel(req.body);
-        console.log(credentials)
-  
+    console.log(req.body)
+    const credentials = new User(req.body);
+
     const token= await userLogic.userRegister(credentials);
     res.json(token);
   } catch (error) {
@@ -51,4 +54,5 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   res.json(user);
 });
 
-export default router;
+let userController = router
+export default userController;

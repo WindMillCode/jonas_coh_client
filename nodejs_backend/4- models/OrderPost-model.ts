@@ -7,7 +7,8 @@ class OrderPostModel{
      public address:string;
      public shippingDate:string;
      public creditCard:number;
-    
+     public userID:string
+
     constructor(orderpost : OrderPostModel){
 
         this.id = orderpost.id;
@@ -17,6 +18,7 @@ class OrderPostModel{
         this.address = orderpost.address;
         this.shippingDate = orderpost.shippingDate;
         this.creditCard = orderpost.creditCard
+        this.userID = orderpost.userID
     }
 
 }

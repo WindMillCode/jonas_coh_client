@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import marketLogic from "../5- logic/market-logic";
-import router from "./cart-controller";
+var router = require('express').Router();
+
 
 router.get("/",async (req: Request, res: Response, next: NextFunction)=>{
     try{
@@ -11,4 +12,5 @@ router.get("/",async (req: Request, res: Response, next: NextFunction)=>{
     }
 })
 
-export default router;
+let marketController =router;
+export default marketController

@@ -1,12 +1,13 @@
-const database = require("../dao/connaction-wraper");
-const ServerError = require("../errors/server-error");
-const ErrorType = require("../errors/error-type");
-const bcrypt = require("bcrypt");
+import database from "../2- utils/dal";
+import ServerError from "../errors/server-error";
+import ErrorType from "../errors/error-type"
+
+import bcrypt from "bcrypt"
 
 /// will use in validation for registration
-const clientHaveAccount = async (user) => {
+export const clientHaveAccount = async (user) => {
+  const sql = "select * from client where identity = ? or user_name = ?";
   try {
-    const sql = "select * from client where identity = ? or user_name = ?";
     const parameters = [user.identity, user.userName];
     const result = await database.exceuteWithParameters(sql, parameters);
     return result;
@@ -16,16 +17,19 @@ const clientHaveAccount = async (user) => {
 };
 
 ///for login checking if user exsit
-const userIsExit = async (user) => {
+export const userIsExit = async (user) => {
+  const sql = `select
+  first_name as firstName,
+  last_name as lastName,
+  user_name as userName,
+  identity,
+  password,
+  city,
+  street,
+  is_admin as isAdmin
+   from client where user_name = ? `;
   try {
-    const sql = `select first_name as firstName,last_name as lastName,
-    user_name as userName,
-    identity,
-    password,
-    city,
-    street,
-    is_admin as isAdmin
-     from client where user_name = ? `;
+
     const parameters = [user.userName];
     const result = await database.exceuteWithParameters(sql, parameters);
     return result;
@@ -34,9 +38,9 @@ const userIsExit = async (user) => {
   }
 };
 
-const userRegister = async (user) => {
+export const userRegister = async (user) => {
+  const sql = `insert into client(first_name,last_name,user_name,identity,password,city,street,is_admin) values(?,?,?,?,?,?,?,?)`;
   try {
-    const sql = `insert into client(first_name,last_name,user_name,identity,password,city,street,is_admin) values(?,?,?,?,?,?,?,?)`;
 
     const parameters = [
       user.firstName,
@@ -54,5 +58,3 @@ const userRegister = async (user) => {
     throw new ServerError(ErrorType.GENERAL_ERROR, sql, error.message);
   }
 };
-
-module.exports = { clientHaveAccount, userRegister, userIsExit };

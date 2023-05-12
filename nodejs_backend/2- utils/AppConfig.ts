@@ -4,9 +4,9 @@ class AppConfig{
 class DevelopmentConfig extends AppConfig{
     public host = 'localhost';
 
-    public username = 'root';
+    public username = 'myadmin';
 
-    public password = '';
+    public password = 'my-secret-pw';
 
     public database = 'supermarkets';
 
@@ -19,25 +19,25 @@ class DevelopmentConfig extends AppConfig{
     public isProduction = false;
 }
 
-class ProductionConfig extends AppConfig{
-    public host = process.env.HOST || 'localhost';
+// class ProductionConfig extends AppConfig{
+//     public host = process.env.HOST || 'localhost';
 
-    public username = process.env.MYSQL_USER;
+//     public username = process.env.MYSQL_USER;
 
-    public password = process.env.MYSQL_PASSWORD;
+//     public password = process.env.MYSQL_PASSWORD;
 
-    public database = process.env.MYSQL_DATABASE;
+//     public database = process.env.MYSQL_DATABASE;
 
-    public port = process.env.PORT;
+//     public port = process.env.PORT;
 
-    public siteUrl = process.env.SITE_URL;
+//     public siteUrl = process.env.SITE_URL;
 
-    public nodeUrl = "http://" + this.host + ":" + this.port + "/";
+//     public nodeUrl = "http://" + this.host + ":" + this.port + "/";
 
-    public isProduction = true;
+//     public isProduction = true;
 
-}
+// }
 
-const appConfig = (process.env.NODE_ENV === 'production') ? new ProductionConfig() : new DevelopmentConfig();
+const appConfig = new DevelopmentConfig();
 
 export default appConfig;

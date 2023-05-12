@@ -1,7 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
-import router from "./market-controller";
+import { NextFunction,Request,Response } from "express";
+
 import cacheModule from "../5- logic/cache-module";
 import cartLogic from "../5- logic/cart-logic";
+var router = require('express').Router();
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -56,4 +57,5 @@ router.delete("/:cartId/product/:productId", async (req: Request, res: Response,
 });
 
 
-export default router;
+let cartController = router
+export default cartController;

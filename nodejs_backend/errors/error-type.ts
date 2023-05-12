@@ -1,6 +1,6 @@
 let ErrorType = {
-    
-    GENERAL_ERROR : {id: 1, httpCode: 600, message : "A big fuck up which we'll never tell you of had just happend. And now : A big fat lie....'A general error ....'", isShowStackTrace: true},
+
+    GENERAL_ERROR : {id: 1, httpCode: 600, message : "A server error occured'", isShowStackTrace: true},
     USER_NAME_ALREADY_EXIST : {id: 2, httpCode: 601, message : "User name already exist or client have already account", isShowStackTrace: false},
     USER_NAME_NOT_INSERT:{id:3,httpCode:400,message:"you forgot enter your userName",isShowStackTrace:false},
     PASSWORD_NOT_INSERT:{id:4,httpCode:400,message:"you forgot enter your password",isShowStackTrace:false},
@@ -33,4 +33,4 @@ let ErrorType = {
     BED_PASSWORD : {id: 22, httpCode: 401, message : "password is not correct", isShowStackTrace: false},
 }
 
-module.exports = ErrorType;
+export default ErrorType;

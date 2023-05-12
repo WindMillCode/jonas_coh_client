@@ -6,6 +6,7 @@ const connection = mysql.createPool({
   user: appConfig.username,
   password : appConfig.password,
   database : appConfig.database,
+  port:3307
 });
 
 function execute(sql: string, values?:any[] ): Promise<any>{
@@ -27,9 +28,9 @@ function execute(sql: string, values?:any[] ): Promise<any>{
           })
       })
   }
-  
-  
-  export default {
-    execute,
-    exceuteWithParameters
-  }
+
+let database = {
+  execute,
+  exceuteWithParameters
+}
+export default database

@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
 import  productLogic from "../5- logic/product-logic";
-import router from "./order-controller";
+
 import verifyLogged from "../3- middleware/verify-logged";
 import verifyAdmin from "../3- middleware/verify-admin";
 import GetProductModel from "../4- models/GetProduct";
+var router = require('express').Router();
 
 
 router.get("/",verifyLogged, async (req: Request, res: Response, next: NextFunction) => {
@@ -27,6 +28,7 @@ router.get("/:search",verifyLogged, async (req: Request, res: Response, next: Ne
 
 router.post("/",verifyAdmin, async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // @ts-ignore
     req.body.image = req.files?.image;
 
     const product = new GetProductModel(req.body);
@@ -40,10 +42,11 @@ router.post("/",verifyAdmin, async (req: Request, res: Response, next: NextFunct
 
 router.put("/",verifyAdmin,async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // @ts-ignore
     req.body.image = req.files?.image;
         const product = new GetProductModel(req.body);
         console.log(product);
-        
+
     const newProduct = await productLogic.updateProduct(product);
     res.status(201).json(newProduct);
   } catch (error) {
@@ -60,4 +63,5 @@ router.put("/",verifyAdmin,async (req: Request, res: Response, next: NextFunctio
 //   }
 // })
 
-export default router;
+let productController = router
+export default productController;

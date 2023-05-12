@@ -1,12 +1,15 @@
 import Joi from "joi";
+import RoleModel from "./role-model";
 
 class UserModel {
-   
+
     public userName:string;
-    public password:string
+    public password:string | any
     static password: any;
-  role: import("c:/Users/cohen/Documents/supermarket-master/backend/4- models/role-model").default;
-    constructor(user : UserModel){
+    public userID:string;
+    public email:string
+    role: RoleModel.user;
+    constructor(user : UserModel |{userName:string,password:string}){
         this.userName = user.userName;
         this.password = user.password
     }
@@ -16,7 +19,7 @@ class UserModel {
     });
     public validate(): string {
         const result = UserModel.validationSchema.validate(this);
-        return result.error?.message;
+        return result.error?.message ?? "";
     }
 
 }
